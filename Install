@@ -1,0 +1,28 @@
+Deploy Prometheus and Grafana on EKS cluster using Helm chart. 
+
+Helm Version Required: 3.0
+
+Prometheus Helm Chart:
+https://github.com/prometheus-communi...
+
+Command to deploy Prometheus:
+helm install prometheus prometheus-community/prometheus \
+    --namespace prometheus \
+    --set alertmanager.persistentVolume.storageClass="gp2" \
+    --set server.persistentVolume.storageClass="gp2" \
+    --set server.service.type=LoadBalancer
+
+Grafana Helm Chart:
+https://github.com/grafana/helm-charts
+https://github.com/grafana/helm-chart...
+
+Command to deploy Grafana:
+helm install grafana grafana/grafana \
+    --namespace grafana \
+    --set persistence.storageClassName="gp2" \
+    --set persistence.enabled=true \
+    --set adminPassword='secretpass' \
+    --values  ~/monitoring/grafana/grafana.yaml \
+    --set service.type=LoadBalancer
+
+#prometheus #grafana #AWS #EKS #devops #kubernetes #helm #Monitoring
